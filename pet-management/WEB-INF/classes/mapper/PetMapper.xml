@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pet.dao.PetMapper">
+
+    <resultMap id="BaseResultMap" type="com.pet.entity.Pet">
+        <id column="pet_id" property="petId" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="breed" property="breed" jdbcType="VARCHAR"/>
+        <result column="age" property="age" jdbcType="INTEGER"/>
+        <result column="gender" property="gender" jdbcType="VARCHAR"/>
+        <result column="health_status" property="healthStatus" jdbcType="VARCHAR"/>
+        <result column="adoption_status" property="adoptionStatus" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="image_url" property="imageUrl" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        pet_id, name, type, breed, age, gender, health_status, 
+        adoption_status, description, image_url, create_time
+    </sql>
+
+    <insert id="insertPet" parameterType="com.pet.entity.Pet" 
+            useGeneratedKeys="true" keyProperty="petId">
+        INSERT INTO pet 
+            (name, type, breed, age, gender, health_status, 
+             adoption_status, description, image_url)
+        VALUES 
+            (#{name}, #{type}, #{breed}, #{age}, #{gender}, #{healthStatus}, 
+             #{adoptionStatus}, #{description}, #{imageUrl})
+    </insert>
+
+    <delete id="deletePet" parameterType="int">
+        DELETE FROM pet WHERE pet_id = #{petId}
+    </delete>
+
+    <update id="updatePet" parameterType="com.pet.entity.Pet">
+        UPDATE pet
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="breed != null">breed = #{breed},</if>
+            <if test="age != null">age = #{age},</if>
+            <if test="gender != null">gender = #{gender},</if>
+            <if test="healthStatus != null">health_status = #{healthStatus},</if>
+            <if test="adoptionStatus != null">adoption_status = #{adoptionStatus},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="imageUrl != null">image_url = #{imageUrl}</if>
+        </set>
+        WHERE pet_id = #{petId}
+    </update>
+
+    <select id="selectPetById" parameterType="int" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List" />
+        FROM pet
+        WHERE pet_id = #{petId}
+    </select>
+
+    <select id="selectAllPets" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List" />
+        FROM pet
+        ORDER BY create_time DESC
+    </select>
+
+    <select id="selectPetsByCondition" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List" />
+        FROM pet
+        <where>
+            <if test="name != null and name != ''">
+                AND name LIKE CONCAT('%', #{name}, '%')
+            </if>
+            <if test="type != null and type != ''">
+                AND type = #{type}
+            </if>
+            <if test="adoptionStatus != null and adoptionStatus != ''">
+                AND adoption_status = #{adoptionStatus}
+            </if>
+        </where>
+        ORDER BY create_time DESC
+    </select>
+    
+    <update id="updateAdoptionStatus">
+        UPDATE pet
+        SET adoption_status = #{adoptionStatus}
+        WHERE pet_id = #{petId}
+    </update>
+</mapper>

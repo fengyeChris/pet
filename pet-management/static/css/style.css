@@ -1,0 +1,98 @@
+@charset "UTF-8";
+/* 基础样式 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+    color: #333;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+}
+
+/* 表单样式 */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.form-group textarea {
+    height: 100px;
+}
+
+/* 表格样式 */
+.pet-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.pet-table th, .pet-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.pet-table th {
+    background-color: #f2f2f2;
+}
+
+.pet-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* 按钮样式 */
+.btn {
+    display: inline-block;
+    background: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 4px;
+    margin: 5px 0;
+    border: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: #45a049;
+}
+
+.search-form {
+    margin: 20px 0;
+    display: flex;
+    gap: 10px;
+}
+
+.search-form input, .search-form select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}

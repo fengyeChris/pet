@@ -1,0 +1,233 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.pet</groupId>
+    <artifactId>pet-management</artifactId>
+    <version>1.0.0</version>
+    <packaging>war</packaging>
+    
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <spring.version>5.3.18</spring.version>
+        <mybatis.version>3.5.9</mybatis.version>
+        <mybatis.spring.version>2.0.7</mybatis.spring.version>
+        <mysql.version>8.0.29</mysql.version>
+        <jackson.version>2.13.3</jackson.version>
+        <jstl.version>1.2</jstl.version>
+         <spring.boot.version>2.7.3</spring.boot.version>
+    </properties>
+    
+    <dependencies>
+        <!-- Spring Core -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-core</artifactId>
+    <version>5.7.1</version> <!-- 使用与Spring版本兼容的版本 -->
+</dependency>
+        
+        <!-- MyBatis -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>${mybatis.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+            <version>${mybatis.spring.version}</version>
+        </dependency>
+       
+
+        
+        <!-- 数据库 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.2.8</version>
+        </dependency>
+        
+        <!-- Web -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>javax.servlet.jsp-api</artifactId>
+            <version>2.3.3</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>${jstl.version}</version>
+        </dependency>
+        
+        <!-- Spring Boot 2.x 兼容方案 -->
+
+
+
+    <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-validation</artifactId>
+    <version>2.7.18</version> <!-- 与 Java EE 7 兼容的版本 -->
+</dependency>
+
+        
+        <!-- JSON -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        
+        <!-- 日志 -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.36</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.11</version>
+        </dependency>
+        
+        <!-- JUnit 依赖 -->
+	    <dependency>
+	        <groupId>junit</groupId>
+	        <artifactId>junit</artifactId>
+	        <version>4.13.2</version>
+	        <scope>test</scope>
+	    </dependency>
+
+		<!--mockito-->
+        <dependency>
+   			<groupId>org.mockito</groupId>
+    		<artifactId>mockito-core</artifactId>
+    		<version>3.12.4</version>  <!-- 使用最新版本 -->
+    		<scope>test</scope>
+		</dependency>
+		
+	<!-- 排除所有可能的 JUnit 5 依赖 -->
+     <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>${spring.boot.version}</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.jupiter</groupId>
+                    <artifactId>junit-jupiter</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+	
+	    <!-- Spring Test 依赖 -->
+	    <dependency>
+	        <groupId>org.springframework</groupId>
+	        <artifactId>spring-test</artifactId>
+	        <version>5.3.20</version>
+	        <scope>test</scope>
+	    </dependency>
+        
+        <dependency>
+    		<groupId>org.apache.commons</groupId>
+   		 	<artifactId>commons-dbcp2</artifactId>
+  		 	<version>2.11.0</version> <!-- 检查最新版本 -->
+		</dependency>
+         <!-- 文件上传-->
+        <dependency>
+		    <groupId>commons-fileupload</groupId>
+		    <artifactId>commons-fileupload</artifactId>
+		    <version>1.4</version>
+		</dependency>
+		<dependency>
+		    <groupId>commons-io</groupId>
+		    <artifactId>commons-io</artifactId>
+		    <version>2.11.0</version>
+		</dependency>
+        
+        <!-- 3. 增强的断言库 -->
+<dependency>
+    <groupId>org.hamcrest</groupId>
+    <artifactId>hamcrest-core</artifactId>
+    <version>2.2</version>
+    <scope>test</scope>
+</dependency>
+
+<!-- 4. 数据库测试支持 -->
+<dependency>
+    <groupId>com.h2database</groupId>
+    <artifactId>h2</artifactId>
+    <version>2.1.214</version>
+    <scope>test</scope>
+</dependency>
+
+<!-- 5. 测试日志增强 -->
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-simple</artifactId>
+    <version>1.7.36</version>
+    <scope>test</scope>
+</dependency>
+        
+    </dependencies>
+    
+    <build>
+        <finalName>pet-management</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.5.2</version>
+            </plugin>
+            
+        </plugins>
+    </build>
+</project>

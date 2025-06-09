@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pet.dao.AdoptionMapper">
+
+    <resultMap id="BaseResultMap" type="com.pet.entity.Adoption">
+        <id column="adopt_id" property="adoptId" jdbcType="INTEGER"/>
+        <result column="pet_id" property="petId" jdbcType="INTEGER"/>
+        <result column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="apply_time" property="applyTime" jdbcType="TIMESTAMP"/>
+        <result column="process_time" property="processTime" jdbcType="TIMESTAMP"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="reason" property="reason" jdbcType="VARCHAR"/>
+        
+        <!-- 关联宠物信息 -->
+        <association property="pet" column="pet_id" 
+                     select="com.pet.dao.PetMapper.selectPetById"/>
+        
+        <!-- 关联用户信息 -->
+        <association property="user" column="user_id" 
+                     select="com.pet.dao.UserMapper.selectUserById"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        adopt_id, pet_id, user_id, apply_time, process_time, status, reason
+    </sql>
+
+    <insert id="insertAdoption" parameterType="com.pet.entity.Adoption" 
+            useGeneratedKeys="true" keyProperty="adoptId">
+        INSERT INTO adoption 
+            (pet_id, user_id, status)
+        VALUES 
+            (#{petId}, #{userId}, #{status})
+    </insert>
+
+    <update id="updateAdoptionStatus" parameterType="com.pet.entity.Adoption">
+        UPDATE adoption
+        <set>
+            status = #{status},
+            process_time = NOW(),
+            <if test="reason != null">reason = #{reason}</if>
+        </set>
+        WHERE adopt_id = #{adoptId}
+    </update>
+
+    <select id="selectAdoptionById" parameterType="int" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List" />
+        FROM adoption
+        WHERE adopt_id = #{adoptId}
+    </select>
+
+    <select id="selectAdoptionsByUserId" parameterType="int" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List" />
+        FROM adoption
+        WHERE user_id = #{userId}
+        ORDER BY apply_time DESC
+    </select>
+
+    <select id="selectPendingAdoptions" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List" />
+        FROM adoption
+        WHERE status = '申请中'
+        ORDER BY apply_time ASC
+    </select>
+</mapper>
